@@ -3,6 +3,7 @@ package org.acme.spring.data.jpa;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Fruit {
@@ -15,12 +16,17 @@ public class Fruit {
 
     private String color;
 
+    @OneToOne()
+    private Type type;
+
+
     public Fruit() {
     }
 
-    public Fruit(String name, String color) {
+    public Fruit(String name, String color,Type type) {
         this.name = name;
         this.color = color;
+        this.type = type;
     }
 
     public Long getId() {
@@ -45,5 +51,13 @@ public class Fruit {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 }

@@ -1,23 +1,22 @@
-<?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.oycc</groupId>
-    <artifactId>spring-data-jpa-quickstart</artifactId>
+    <groupId>org.acme</groupId>
+    <artifactId>hibernate-orm-panache-quickstart</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+
     <properties>
         <quarkus-plugin.version>1.12.0.Final</quarkus-plugin.version>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.version>1.12.0.Final</quarkus.platform.version>
-        <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+        <compiler-plugin.version>3.8.0</compiler-plugin.version>
         <docker-plugin.version>0.28.0</docker-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.parameters>true</maven.compiler.parameters>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencyManagement>
@@ -26,8 +25,8 @@
                 <groupId>${quarkus.platform.group-id}</groupId>
                 <artifactId>${quarkus.platform.artifact-id}</artifactId>
                 <version>${quarkus.platform.version}</version>
-                <type>pom</type>
                 <scope>import</scope>
+                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -35,20 +34,18 @@
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-spring-data-jpa</artifactId>
-        </dependency>
-        <!--    <dependency>-->
-        <!--      <groupId>io.quarkus</groupId>-->
-        <!--      <artifactId>quarkus-jdbc-postgresql</artifactId>-->
-        <!--    </dependency>-->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jdbc-mysql</artifactId>
+            <artifactId>quarkus-hibernate-orm-panache</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jackson</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-mysql</artifactId>
+        </dependency>
+
+        <!-- Testing: -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
@@ -64,8 +61,15 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler-plugin.version}</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <!-- the parameters=true option is critical so that RESTEasy works fine -->
+                    <parameters>true</parameters>
+                </configuration>
             </plugin>
             <plugin>
                 <!-- you need this specific version to integrate with the other build helpers -->
@@ -100,7 +104,7 @@
                     <skip>${skipTests}</skip>
                     <images>
                         <image>
-                            <name>postgres:11.5</name>
+                            <name>postgres:10.5</name>
                             <alias>postgresql</alias>
                             <run>
                                 <env>
@@ -149,8 +153,10 @@
             </plugin>
         </plugins>
     </build>
+
     <profiles>
         <profile>
+            <!-- Optionally activate this profile to compile the demo into native! -->
             <id>native</id>
             <activation>
                 <property>
@@ -183,6 +189,51 @@
                         </executions>
                     </plugin>
                 </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>eclipse</id>
+            <activation>
+                <property>
+                    <!-- This is a trick to have the profile automatically activated by Eclipse -->
+                    <name>m2e.version</name>
+                </property>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                        <plugin>
+                            <groupId>org.eclipse.m2e</groupId>
+                            <artifactId>lifecycle-mapping</artifactId>
+                            <version>1.0.0</version>
+                            <configuration>
+                                <lifecycleMappingMetadata>
+                                    <pluginExecutions>
+                                        <pluginExecution>
+                                            <pluginExecutionFilter>
+                                                <groupId>io.fabric8</groupId>
+                                                <artifactId>
+                                                    docker-maven-plugin
+                                                </artifactId>
+                                                <versionRange>
+                                                    [0.28.0,)
+                                                </versionRange>
+                                                <goals>
+                                                    <goal>start</goal>
+                                                    <goal>stop</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <ignore></ignore>
+                                            </action>
+                                        </pluginExecution>
+                                    </pluginExecutions>
+                                </lifecycleMappingMetadata>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
             </build>
         </profile>
     </profiles>

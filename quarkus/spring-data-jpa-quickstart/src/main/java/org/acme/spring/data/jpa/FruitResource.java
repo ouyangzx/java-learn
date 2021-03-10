@@ -16,15 +16,27 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 public class FruitResource {
 
     private final FruitRepository fruitRepository;
+    private final TypeRepository typeRepository;
 
-    public FruitResource(FruitRepository fruitRepository) {
+    public FruitResource(FruitRepository fruitRepository, TypeRepository typeRepository) {
         this.fruitRepository = fruitRepository;
+        this.typeRepository = typeRepository;
     }
 
     @GET
     @Produces("application/json")
     public Iterable<Fruit> findAll() {
-        return fruitRepository.findAll();
+        Iterable<Fruit> all = fruitRepository.findAll();
+
+//        all.forEach(f->{
+//            Optional<Type> optional = typeRepository.findById(f.getId());
+//            if (optional.isPresent()) {
+//                System.out.println("optional.get() = " + optional.get());
+//                f.setType(optional.get());
+//            }
+//
+//        });
+        return all;
     }
 
     @DELETE
@@ -37,7 +49,9 @@ public class FruitResource {
     @Path("/name/{name}/color/{color}")
     @Produces("application/json")
     public Fruit create(@PathParam String name, @PathParam String color) {
-        return fruitRepository.save(new Fruit(name, color));
+        Type type = new Type();
+        type.setId(1L);
+        return fruitRepository.save(new Fruit(name, color,type));
     }
 
     @PUT
