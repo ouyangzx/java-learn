@@ -6,6 +6,7 @@
         <groupId>com.alibaba.cloud</groupId>
         <artifactId>spring-cloud-alibaba-examples</artifactId>
         <version>${revision}</version>
+<!--        <version>1.0.0</version>-->
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -13,7 +14,6 @@
     <artifactId>nacos-config-example</artifactId>
     <name>Spring Cloud Starter Alibaba Nacos Config Example</name>
     <description>Example demonstrating how to use nacos config</description>
-    <packaging>jar</packaging>
 
 
     <dependencies>
@@ -39,14 +39,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>${maven-deploy-plugin.version}</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
+
         </plugins>
     </build>
 
