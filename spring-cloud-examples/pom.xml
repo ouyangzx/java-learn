@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-alibaba-examples</artifactId>
+    <packaging>pom</packaging>
+    <name>Spring Cloud Alibaba Examples</name>
+
+    <properties>
+        <!-- Project revision -->
+        <revision>1.0.0</revision>
+        <spring-boot.version>2.3.8.RELEASE</spring-boot.version>
+
+        <!-- Spring Cloud -->
+        <spring.cloud.version>Hoxton.SR10</spring.cloud.version>
+        <spring.cloud.alibaba.version>2.2.5.RELEASE</spring.cloud.alibaba.version>
+
+        <!-- Apache Dubbo -->
+        <dubbo.version>2.7.8</dubbo.version>
+        <curator.version>4.0.1</curator.version>
+
+        <!-- Apache RocketMQ -->
+        <rocketmq.starter.version>2.0.2</rocketmq.starter.version>
+
+        <!-- Maven Plugin Versions -->
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+        <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
+        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
+        <gmavenplus-plugin.version>1.6</gmavenplus-plugin.version>
+        <jacoco.version>0.8.3</jacoco.version>
+    </properties>
+
+    <modules>
+        <!--        <module>sentinel-example/sentinel-core-example</module>-->
+        <!--        <module>sentinel-example/sentinel-dubbo-example/sentinel-dubbo-provider-example</module>-->
+        <!--        <module>sentinel-example/sentinel-dubbo-example/sentinel-dubbo-consumer-example</module>-->
+        <!--        <module>sentinel-example/sentinel-dubbo-example/sentinel-dubbo-api</module>-->
+        <!--        <module>sentinel-example/sentinel-feign-example/sentinel-feign-consumer-example</module>-->
+        <!--        <module>sentinel-example/sentinel-feign-example/sentinel-feign-provider-example</module>-->
+        <!--        <module>sentinel-example/sentinel-webflux-example</module>-->
+        <!--        <module>sentinel-example/sentinel-spring-cloud-gateway-example</module>-->
+        <!--        <module>sentinel-example/sentinel-zuul-example</module>-->
+        <module>nacos-example/nacos-discovery-example</module>
+        <!--        <module>nacos-example/nacos-config-example</module>-->
+        <module>nacos-config-example</module>
+        <!--        <module>nacos-example/nacos-gateway-example</module>-->
+        <!--        <module>seata-example/business-service</module>-->
+        <!--        <module>seata-example/order-service</module>-->
+        <!--        <module>seata-example/storage-service</module>-->
+        <!--        <module>seata-example/account-service</module>-->
+        <!--        <module>rocketmq-example/rocketmq-consume-example</module>-->
+        <!--        <module>rocketmq-example/rocketmq-produce-example</module>-->
+        <!--        <module>spring-cloud-bus-rocketmq-example</module>-->
+        <!--        <module>spring-cloud-alibaba-dubbo-examples</module>-->
+        <!--        <module>spring-cloud-alibaba-sidecar-examples/spring-cloud-alibaba-sidecar-nacos-example</module>-->
+        <!--        <module>spring-cloud-alibaba-sidecar-examples/spring-cloud-alibaba-sidecar-consul-example</module>-->
+    </modules>
+
+
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- Spring Dependencies -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Dubbo Dependencies -->
+            <!--            <dependency>-->
+            <!--                <groupId>org.apache.dubbo</groupId>-->
+            <!--                <artifactId>dubbo-dependencies-bom</artifactId>-->
+            <!--                <version>${dubbo.version}</version>-->
+            <!--                <type>pom</type>-->
+            <!--                <scope>import</scope>-->
+            <!--                <exclusions>-->
+            <!--                    <exclusion>-->
+            <!--                        <groupId>org.springframework</groupId>-->
+            <!--                        <artifactId>spring-framework-bom</artifactId>-->
+            <!--                    </exclusion>-->
+            <!--                </exclusions>-->
+            <!--            </dependency>-->
+
+            <!--            <dependency>-->
+            <!--                <groupId>org.apache.dubbo</groupId>-->
+            <!--                <artifactId>dubbo-spring-boot-starter</artifactId>-->
+            <!--                <version>${dubbo.version}</version>-->
+            <!--            </dependency>-->
+
+            <!--            <dependency>-->
+            <!--                <groupId>org.apache.dubbo</groupId>-->
+            <!--                <artifactId>dubbo-spring-boot-actuator</artifactId>-->
+            <!--                <version>${dubbo.version}</version>-->
+            <!--            </dependency>-->
+
+            <!--            <dependency>-->
+            <!--                <groupId>org.apache.dubbo</groupId>-->
+            <!--                <artifactId>dubbo</artifactId>-->
+            <!--                <version>${dubbo.version}</version>-->
+            <!--                <exclusions>-->
+            <!--                    <exclusion>-->
+            <!--                        <groupId>org.springframework</groupId>-->
+            <!--                        <artifactId>spring-context</artifactId>-->
+            <!--                    </exclusion>-->
+            <!--                </exclusions>-->
+            <!--            </dependency>-->
+
+            <!--            <dependency>-->
+            <!--                <groupId>org.apache.rocketmq</groupId>-->
+            <!--                <artifactId>rocketmq-spring-boot-starter</artifactId>-->
+            <!--                <version>${rocketmq.starter.version}</version>-->
+            <!--            </dependency>-->
+
+        </dependencies>
+    </dependencyManagement>
+    <!-- 阿里云maven仓库 -->
+    <repositories>
+        <repository>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <name>Maven Central Staging Repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+
+</project>
